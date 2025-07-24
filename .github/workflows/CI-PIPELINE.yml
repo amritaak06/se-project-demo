@@ -33,25 +33,30 @@ jobs:
       - name: Upgrade pip
         run: python -m pip install --upgrade pip
 
-      - name: Install dependencies (if requirements.txt exists)
+      - name: Install dependencies
         run: |
-          if [ -f requirements.txt ]; then
-            pip install -r requirements.txt
-          else
-            echo "No requirements.txt file found, skipping dependency installation."
-          fi
+          pip install -r requirements.txt || echo "No requirements.txt found"
+          pip install flake8 pytest coverage
 
       - name: Lint with flake8
         run: |
-          pip install flake8
           flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics || true
 
-      - name: Run tests with coverage (if tests exist)
+      - name: Run tests with coverage
         run: |
-          pip install pytest coverage
           if ls tests/test_*.py 1> /dev/null 2>&1; then
             coverage run -m pytest
+            coverage xml  # generates coverage.xml for SonarCloud
             coverage report
-            coverage xml
           else
-            echo "No tests found in 'tests/', skipping pytest and coverage."
+            echo "No tests found in 'tests/', skipping tests."
+          fi
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@v2
+        with:
+          projectBaseDir: .
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_PROJECT_KEY: amritaak06_se-project-demo
+          SONAR_ORGANIZATION: amritaak06
