@@ -46,11 +46,12 @@ jobs:
           pip install flake8
           flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics || true
 
-      - name: Run tests with pytest (if tests exist)
+      - name: Run tests with coverage (if tests exist)
         run: |
-          pip install pytest
+          pip install pytest coverage
           if ls tests/test_*.py 1> /dev/null 2>&1; then
-            pytest
+            coverage run -m pytest
+            coverage report
+            coverage xml
           else
-            echo "No tests found in 'tests/', skipping pytest."
-          fi
+            echo "No tests found in 'tests/', skipping pytest and coverage."
