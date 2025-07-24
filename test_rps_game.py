@@ -1,5 +1,5 @@
 import pytest
-from rps_game import determine_winner
+from rps_gamemode import determine_winner
 
 @pytest.mark.parametrize("p1, p2, expected", [
     ('rock', 'scissors', "Player 1 wins!"),
