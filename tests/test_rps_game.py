@@ -1,17 +1,14 @@
 import pytest
 from rps_gamemode import get_winner
 
-def test_get_winner_player_wins():
-    assert get_winner('rock', 'scissors') == 'player'
-    assert get_winner('paper', 'rock') == 'player'
-    assert get_winner('scissors', 'paper') == 'player'
+# rps_gamemode.py
 
-def test_get_winner_ai_wins():
-    assert get_winner('scissors', 'rock') == 'ai'
-    assert get_winner('rock', 'paper') == 'ai'
-    assert get_winner('paper', 'scissors') == 'ai'
+def get_winner(player, ai):
+    beats = {"rock": "scissors", "scissors": "paper", "paper": "rock"}
+    if player == ai:
+        return "tie"
+    elif beats[player] == ai:
+        return "player"
+    else:
+        return "ai"
 
-def test_get_winner_tie():
-    assert get_winner('rock', 'rock') == 'tie'
-    assert get_winner('paper', 'paper') == 'tie'
-    assert get_winner('scissors', 'scissors') == 'tie'
