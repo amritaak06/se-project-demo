@@ -44,13 +44,15 @@ jobs:
 
       - name: Run tests with coverage
         run: |
+          export PYTHONPATH="${PYTHONPATH}:$(pwd)"
           if ls tests/test_*.py 1> /dev/null 2>&1; then
             coverage run -m pytest
-            coverage xml  # generates coverage.xml for SonarCloud
+            coverage xml
             coverage report
           else
             echo "No tests found in 'tests/', skipping tests."
           fi
+
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
