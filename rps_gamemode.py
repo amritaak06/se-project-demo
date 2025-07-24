@@ -28,7 +28,7 @@ def two_player_mode():
 def single_player_mode():
     print("\n--- Single Player vs AI Mode ---")
     player = get_player_choice("Player")
-    ai = random.choice(['rock', 'paper', 'scissors']) #NOSONAR
+    ai = random.choice(CHOICES) #NOSONAR
     print(f"AI chose: {ai}")
     result = determine_winner(player, ai)
     print(result)
