@@ -1,5 +1,5 @@
 import pytest
-from rock_paper_scissors import get_winner
+from rps_gamemode import get_winner
 
 def test_get_winner_player_wins():
     assert get_winner('rock', 'scissors') == 'player'
