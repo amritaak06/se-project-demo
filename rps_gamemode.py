@@ -52,5 +52,17 @@ def main_menu():
         else:
             print("Invalid selection. Please choose 1, 2, or 3.")
 
+# rps_gamemode.py
+
+def get_winner(player1, player2):
+    beats = {"rock": "scissors", "scissors": "paper", "paper": "rock"}
+    if player1 == player2:
+        return "tie"
+    elif beats[player1] == player2:
+        return "player1"
+    else:
+        return "player2"
+
+
 if __name__ == "__main__":
     main_menu()
