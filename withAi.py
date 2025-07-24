@@ -13,7 +13,7 @@ def get_user_move():
 
 # Random AI move
 def get_ai_move():
-    return random.choice(VALID_MOVES)
+    return random.choice(VALID_MOVES) #NOSONAR
 
 # Determine winner
 def get_winner(player, ai):
