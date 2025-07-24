@@ -1,16 +1,17 @@
 import pytest
-from rps_gamemode import determine_winner
+from rock_paper_scissors import get_winner
 
-@pytest.mark.parametrize("p1, p2, expected", [
-    ('rock', 'scissors', "Player 1 wins!"),
-    ('scissors', 'paper', "Player 1 wins!"),
-    ('paper', 'rock', "Player 1 wins!"),
-    ('scissors', 'rock', "Player 2 wins!"),
-    ('paper', 'scissors', "Player 2 wins!"),
-    ('rock', 'paper', "Player 2 wins!"),
-    ('rock', 'rock', "It's a tie!"),
-    ('paper', 'paper', "It's a tie!"),
-    ('scissors', 'scissors', "It's a tie!"),
-])
-def test_determine_winner(p1, p2, expected):
-    assert determine_winner(p1, p2) == expected
+def test_get_winner_player_wins():
+    assert get_winner('rock', 'scissors') == 'player'
+    assert get_winner('paper', 'rock') == 'player'
+    assert get_winner('scissors', 'paper') == 'player'
+
+def test_get_winner_ai_wins():
+    assert get_winner('scissors', 'rock') == 'ai'
+    assert get_winner('rock', 'paper') == 'ai'
+    assert get_winner('paper', 'scissors') == 'ai'
+
+def test_get_winner_tie():
+    assert get_winner('rock', 'rock') == 'tie'
+    assert get_winner('paper', 'paper') == 'tie'
+    assert get_winner('scissors', 'scissors') == 'tie'
